@@ -40,8 +40,10 @@ int main(int argc, char **argv) {
 
     hexfont_character *c = hexfont_get(example_font, HEXFONT_EXAMPLE_TEST_CODEPOINT);
     printf("Get: %p (%d)\n", c, c->glyph_len);
-    for (size_t y=0; y<c->height; y++) {
-        for (size_t x=0; x<c->width; x++) {
+    size_t y = 0;
+    for (y=0; y<c->height; y++) {
+        size_t x = 0;
+        for (x=0; x<c->width; x++) {
             if (hexfont_get_pixel(c, x, y)) {
                 printf("#");
             }
