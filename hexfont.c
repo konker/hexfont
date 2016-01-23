@@ -98,7 +98,8 @@ const bool hexfont_get_pixel(hexfont_character * const c, const size_t x, const 
 }
 
 void hexfont_destroy(hexfont * const font) {
-    for (uint16_t i=0; i<font->length; i++) {
+    uint16_t i = 0;
+    for (i=0; i<font->length; i++) {
         __hexfont_node const * tmp;
         __hexfont_node const * iter = font->buckets[i];
 
@@ -190,7 +191,8 @@ static void __hexfont_parse_glyph(uint8_t **glyph, size_t *glyph_len, char * con
     *glyph = calloc(*glyph_len, sizeof(**glyph));
 
     // Parse each hex pair to an unsigned int
-    for (size_t i=0; i<*glyph_len; i++) {
+    size_t i = 0;
+    for (i=0; i<*glyph_len; i++) {
         sscanf(glyph_chars + 2*i, "%02hhx", (*glyph)+i);
     }
 }
@@ -203,9 +205,11 @@ static const uint16_t __hexfont_calculate_width(uint8_t * const glyph, const siz
     uint16_t last_on = 0;
 
     // Loop through each byte in the glyph
-    for (size_t i=0; i<glyph_len; i++) {
+    size_t i = 0;
+    for (i=0; i<glyph_len; i++) {
         // Loop through each bit in the byte
-        for (size_t j=0; j<HEXFONT_BYTE_WIDTH; j++) {
+        size_t j = 0;
+        for (j=0; j<HEXFONT_BYTE_WIDTH; j++) {
             // Find the 'x coordinate' represented by the jth bit in the ith byte
             size_t x = ((i % glyph_char_width) * HEXFONT_BYTE_WIDTH) + j;
 
