@@ -126,7 +126,7 @@ static hexfont * const __hexfont_load_exec(FILE *fp, const uint8_t glyph_height)
     char *line = NULL;
     char *endptr = NULL;
     size_t len = 0;
-    ssize_t read;
+    size_t read;
 
     // Count the number of codepoints
     uint16_t N = 0;
