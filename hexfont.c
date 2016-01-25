@@ -39,6 +39,10 @@
 // Index of ':' character
 #define HEXFONT_DATA_ITEM_SEP_POSITION 4
 
+// Default width for non-printable characters
+#define HEXFONT_DEFAULT_NON_PRINTABLE_WIDTH 3
+
+
 static const uint16_t __hexfont_hash_function(const uint16_t codepoint, const uint16_t N);
 static hexfont * const __hexfont_load_exec(FILE *fp, const uint8_t glyph_height);
 static void __hexfont_parse_glyph(uint8_t **glyph, size_t *glyph_len, char * const glyph_chars, const size_t glyph_chars_len);
@@ -228,7 +232,7 @@ static const uint16_t __hexfont_calculate_width(uint8_t * const glyph, const siz
 
     // Adjust, mostly for SPACE character
     if (last_on == 1) {
-        last_on = glyph_char_width * HEXFONT_BYTE_WIDTH;
+        last_on = HEXFONT_DEFAULT_NON_PRINTABLE_WIDTH;
     }
 
     return last_on;
