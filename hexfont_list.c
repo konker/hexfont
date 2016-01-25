@@ -44,8 +44,11 @@ void hexfont_list_destroy(hexfont_list * const head) {
     while (iter->next) {
         tmp = iter;
         iter = iter->next;
+
+        hexfont_destroy(tmp->font);
         free(tmp);
     }
+    hexfont_destroy(iter->font);
     free(iter);
 }
 
