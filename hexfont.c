@@ -141,7 +141,6 @@ static hexfont * const __hexfont_load_exec(FILE *fp, const uint8_t glyph_height)
         N++;
     }
     free(line);
-    printf("Found %d codepoints...\n", N);
 
     // Allocate memory for the hexfont structure
     hexfont * const font = malloc(sizeof(hexfont));
