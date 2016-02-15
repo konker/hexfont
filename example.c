@@ -38,23 +38,14 @@ int main(int argc, char **argv) {
 
     printf("Loaded: %d characters\n", example_font->length);
 
-    hexfont_character *c = hexfont_get(example_font, HEXFONT_EXAMPLE_TEST_CODEPOINT);
+    hexfont_character *c =
+                hexfont_get(example_font, HEXFONT_EXAMPLE_TEST_CODEPOINT);
     printf("Get: %p (%d)\n", c, c->glyph_len);
-    size_t y = 0;
-    for (y=0; y<c->height; y++) {
-        size_t x = 0;
-        for (x=0; x<c->width; x++) {
-            if (hexfont_get_pixel(c, x, y)) {
-                printf("#");
-            }
-            else {
-                printf("-");
-            }
-        }
-        printf("\n");
-    }
-    printf("Width: %d\n", hexfont_get(example_font, HEXFONT_EXAMPLE_TEST_CODEPOINT)->width);
-    printf("Height: %d\n", hexfont_get(example_font, HEXFONT_EXAMPLE_TEST_CODEPOINT)->height);
+
+    hexfont_dump_character(c, stdout);
+
+    printf("Width: %d\n", c->width);
+    printf("Height: %d\n", c->height);
 
     // ------------------------------------------------------------------------
     hexfont_list *example_font_list =
