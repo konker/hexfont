@@ -26,7 +26,6 @@
 #include <string.h>
 #include "hexfont.h"
 
-
 #define HEXFONT_BYTE_WIDTH 8
 
 // Enough for 1234:X...
@@ -102,7 +101,7 @@ const bool hexfont_character_get_pixel(hexfont_character * const c, const size_t
 }
 
 void hexfont_destroy(hexfont * const font) {
-    uint32_t i = 0;
+    uint16_t i = 0;
     for (i=0; i<font->length; i++) {
         __hexfont_node const * tmp;
         __hexfont_node const * iter = font->buckets[i];
@@ -148,7 +147,7 @@ static hexfont * const __hexfont_load_exec(FILE *fp, const uint8_t glyph_height)
     size_t read;
 
     // Count the number of codepoints
-    uint32_t N = 0;
+    uint16_t N = 0;
     while ((read = getline(&line, &len, fp)) != -1) {
         if (line == NULL || read < HEXFONT_MIN_DATA_ITEM_LEN) {
             continue;

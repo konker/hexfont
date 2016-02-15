@@ -53,7 +53,7 @@ typedef struct __hexfont_node {
 // A list of code points and a way of looking up code points efficiently
 typedef struct hexfont {
     __hexfont_node const ** buckets;
-    uint32_t length;
+    uint16_t length;
     uint16_t glyph_height;
 
 } hexfont;
