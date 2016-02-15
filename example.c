@@ -55,7 +55,6 @@ int main(int argc, char **argv) {
     printf("hexfont_list: get nth: %d\n", (example_font == font));
 
     hexfont_list_destroy(example_font_list);
-    hexfont_destroy(example_font);
     printf("Goodbye\n");
 
     return EXIT_SUCCESS;
