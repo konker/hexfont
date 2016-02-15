@@ -81,7 +81,11 @@ hexfont_character * const hexfont_get(hexfont * const font, const uint16_t codep
     }
 
     __hexfont_node const * iter = font->buckets[key];
-    while (iter->key  != key) {
+    if (iter == NULL) {
+        return NULL;
+    }
+
+    while (iter->key != key) {
         iter = iter->next;
     }
     return iter->value;
