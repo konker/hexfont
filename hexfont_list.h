@@ -35,12 +35,12 @@ extern "C" {
  * A singly linked list of font/font_metrics pairs
   */
 typedef struct hexfont_list {
-    hexfont *font;
+    hexfont *item;
     struct hexfont_list *next;
 
 } hexfont_list;
 
-hexfont_list * const hexfont_list_create(hexfont * const font);
+hexfont_list * const hexfont_list_create(hexfont * const item);
 void hexfont_list_destroy(hexfont_list * const head);
 void hexfont_list_append(hexfont_list * const head, hexfont * const new_item);
 

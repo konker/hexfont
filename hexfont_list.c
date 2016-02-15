@@ -27,11 +27,11 @@
 #include "hexfont_list.h"
 
 
-hexfont_list * const hexfont_list_create(hexfont * const font) {
+hexfont_list * const hexfont_list_create(hexfont * const item) {
     // Allocate memory for the head element
     hexfont_list * const font_list = malloc(sizeof(hexfont_list));
 
-    font_list->font = font;
+    font_list->item = item;
     font_list->next = NULL;
 
     return font_list;
@@ -45,21 +45,26 @@ void hexfont_list_destroy(hexfont_list * const head) {
         tmp = iter;
         iter = iter->next;
 
-        hexfont_destroy(tmp->font);
+        hexfont_destroy(tmp->item);
         free(tmp);
     }
-    hexfont_destroy(iter->font);
+    hexfont_destroy(iter->item);
     free(iter);
 }
 
 void hexfont_list_append(hexfont_list * const head, hexfont * const new_item) {
-    hexfont_list *tail;
+    hexfont_list *tail = head;
     hexfont_list *iter = head;
     while (iter->next) {
         tail = iter;
         iter = iter->next;
     }
-    tail->next = hexfont_list_create(new_item);
+    if (tail->item == NULL) {
+        tail->item = new_item;
+    }
+    else {
+        tail->next = hexfont_list_create(new_item);
+    }
 }
 
 uint16_t hexfont_list_get_length(hexfont_list * const head) {
@@ -82,6 +87,6 @@ hexfont * const hexfont_list_get_nth(hexfont_list * const head, int16_t n) {
     for (i=0; i<n; i++) {
         iter = iter->next;
     }
-    return iter->font;
+    return iter->item;
 }
 
