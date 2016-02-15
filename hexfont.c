@@ -42,11 +42,11 @@
 #define HEXFONT_DEFAULT_NON_PRINTABLE_WIDTH 3
 
 
-static const uint16_t __hexfont_hash_function(const uint16_t codepoint, const uint16_t N);
+static const uint16_t __hexfont_hash_function(const uint32_t codepoint, const uint16_t N);
 static hexfont * const __hexfont_load_exec(FILE *fp, const uint8_t glyph_height);
 static void __hexfont_parse_glyph(uint8_t **glyph, size_t *glyph_len, char * const glyph_chars, const size_t glyph_chars_len);
 static const uint16_t __hexfont_calculate_width(uint8_t * const glyph, const size_t glyph_len, const uint16_t glyph_height);
-static void __hexfont_add_character(hexfont * const font, uint16_t codepoint, uint8_t * const glyph, const size_t glyph_len, const uint16_t glyph_height);
+static void __hexfont_add_character(hexfont * const font, uint32_t codepoint, uint8_t * const glyph, const size_t glyph_len, const uint16_t glyph_height);
 
 
 hexfont * const hexfont_load(const char *file, const uint8_t glyph_height) {
@@ -74,7 +74,7 @@ hexfont * const hexfont_load_data(const char *data, const uint8_t glyph_height) 
 }
 
 
-hexfont_character * const hexfont_get(hexfont * const font, const uint16_t codepoint) {
+hexfont_character * const hexfont_get(hexfont * const font, const uint32_t codepoint) {
     const uint16_t key = __hexfont_hash_function(codepoint, font->length);
     if (font->length < key) {
         return NULL;
@@ -140,7 +140,7 @@ void hexfont_dump_character(hexfont_character * const c, FILE *fp) {
 
 // ----------------------------------------------------------------------------
 // Static helpers
-static const uint16_t __hexfont_hash_function(const uint16_t codepoint, const uint16_t N) {
+static const uint16_t __hexfont_hash_function(const uint32_t codepoint, const uint16_t N) {
     return (codepoint % N);
 }
 
@@ -178,8 +178,8 @@ static hexfont * const __hexfont_load_exec(FILE *fp, const uint8_t glyph_height)
         }
 
         // Parse the codepoint number
-        const uint16_t codepoint =
-            (const uint16_t)strtol(line, &endptr, HEXFONT_CODEPOINT_NUMBER_BASE);
+        const uint32_t codepoint =
+            (const uint32_t)strtol(line, &endptr, HEXFONT_CODEPOINT_NUMBER_BASE);
 
         // Extract the glyph chars into an array of bytes
         size_t glyph_len;
@@ -255,7 +255,7 @@ static const uint16_t __hexfont_calculate_width(uint8_t * const glyph, const siz
     return last_on;
 }
 
-static void __hexfont_add_character(hexfont * const font, uint16_t codepoint, uint8_t * const glyph, const size_t glyph_len, const uint16_t glyph_height) {
+static void __hexfont_add_character(hexfont * const font, uint32_t codepoint, uint8_t * const glyph, const size_t glyph_len, const uint16_t glyph_height) {
     hexfont_character * const character = malloc(sizeof(hexfont_character));
     __hexfont_node * const node = malloc(sizeof(__hexfont_node));
 
