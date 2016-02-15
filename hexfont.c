@@ -120,6 +120,21 @@ void hexfont_destroy(hexfont * const font) {
     free(font);
 }
 
+void hexfont_dump_character(hexfont_character * const c, FILE *fp) {
+    int16_t by, bx;
+    for (by=0; by<c->height; by++) {
+        for (bx=0; bx<c->width; bx++) {
+            if (hexfont_get_pixel(c, bx, by)) {
+                fprintf(fp, "# ");
+            }
+            else {
+                fprintf(fp, ". ");
+            }
+        }
+        fprintf(fp, "\n");
+    }
+}
+
 // ----------------------------------------------------------------------------
 // Static helpers
 static const uint16_t __hexfont_hash_function(const uint16_t codepoint, const uint16_t N) {

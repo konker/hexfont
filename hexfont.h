@@ -28,6 +28,7 @@
 extern "C" {
 #endif
 
+#include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
 
@@ -62,6 +63,7 @@ hexfont * const hexfont_load_data(const char *data, const uint8_t glyph_height);
 hexfont_character * const hexfont_get(hexfont * const font, const uint16_t codepoint);
 const bool hexfont_get_pixel(hexfont_character * const c, const size_t x, const size_t y);
 void hexfont_destroy(hexfont * const font);
+void hexfont_dump_character(hexfont_character * const c, FILE *fp);
 
 
 #ifdef __cplusplus
