@@ -26,7 +26,7 @@
 #include "hexfont.h"
 #include "hexfont_list.h"
 
-#define HEXFONT_EXAMPLE_TEST_CODEPOINT 0xAD
+#define HEXFONT_EXAMPLE_TEST_CODEPOINT 0xf6
 
 
 int main(int argc, char **argv) {
@@ -40,7 +40,7 @@ int main(int argc, char **argv) {
 
     hexfont_character *c =
                 hexfont_get(example_font, HEXFONT_EXAMPLE_TEST_CODEPOINT);
-    printf("Get: %p (%d)\n", c, c->glyph_len);
+    printf("Get: %d -> %p (%d) -> %02x\n", HEXFONT_EXAMPLE_TEST_CODEPOINT, c, c->glyph_len, c->codepoint);
 
     hexfont_dump_character(c, stdout);
 

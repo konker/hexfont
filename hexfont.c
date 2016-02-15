@@ -85,9 +85,14 @@ hexfont_character * const hexfont_get(hexfont * const font, const uint32_t codep
         return NULL;
     }
 
-    while (iter->key != key) {
+    while (iter && iter->value && iter->value->codepoint != codepoint) {
         iter = iter->next;
     }
+
+    if (iter == NULL) {
+        return NULL;
+    }
+
     return iter->value;
 }
 
