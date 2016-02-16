@@ -26,8 +26,6 @@
 #include <string.h>
 #include "hexfont.h"
 
-#define HEXFONT_BYTE_WIDTH 8
-
 // Enough for 1234:X...
 #define HEXFONT_MIN_DATA_ITEM_LEN 6
 
@@ -42,7 +40,9 @@
 #define HEXFONT_DEFAULT_NON_PRINTABLE_WIDTH 3
 
 
-static const uint16_t __hexfont_hash_function(const uint32_t codepoint, const uint16_t N);
+extern const bool hexfont_character_get_pixel(hexfont_character * const c, const size_t x, const size_t y);
+extern inline hexfont_character * const hexfont_get(hexfont * const font, const uint32_t codepoint);
+
 static hexfont * const __hexfont_load_exec(FILE *fp, const uint8_t glyph_height);
 static void __hexfont_parse_glyph(uint8_t **glyph, size_t *glyph_len, char * const glyph_chars, const size_t glyph_chars_len);
 static const uint16_t __hexfont_calculate_width(uint8_t * const glyph, const size_t glyph_len, const uint16_t glyph_height);
@@ -71,42 +71,6 @@ hexfont * const hexfont_load_data(const char *data, const uint8_t glyph_height) 
     }
 
     return __hexfont_load_exec(fp, glyph_height);
-}
-
-
-hexfont_character * const hexfont_get(hexfont * const font, const uint32_t codepoint) {
-    const uint16_t key = __hexfont_hash_function(codepoint, font->length);
-    if (font->length < key) {
-        return NULL;
-    }
-
-    __hexfont_node const * iter = font->buckets[key];
-    if (iter == NULL) {
-        return NULL;
-    }
-
-    while (iter && iter->value && iter->value->codepoint != codepoint) {
-        iter = iter->next;
-    }
-
-    if (iter == NULL) {
-        return NULL;
-    }
-
-    return iter->value;
-}
-
-const bool hexfont_character_get_pixel(hexfont_character * const c, const size_t x, const size_t y) {
-    // Number of bytes in one row of the glyph
-    const size_t glyph_row_bytes = (c->glyph_len / c->height);
-
-    // Find the byte and bit which represent the (x, y) 'pixel coordinate'
-    size_t byte = (y * glyph_row_bytes) +
-                    (x - (x % HEXFONT_BYTE_WIDTH)) / HEXFONT_BYTE_WIDTH;
-    size_t bit = x % HEXFONT_BYTE_WIDTH;
-
-    // Check if the bit is set
-    return ((c->glyph[byte] << bit) & 0x80) != 0;
 }
 
 void hexfont_destroy(hexfont * const font) {
@@ -145,7 +109,7 @@ void hexfont_dump_character(hexfont_character * const c, FILE *fp) {
 
 // ----------------------------------------------------------------------------
 // Static helpers
-static const uint16_t __hexfont_hash_function(const uint32_t codepoint, const uint16_t N) {
+const uint16_t __hexfont_hash_function(const uint32_t codepoint, const uint16_t N) {
     return (codepoint % N);
 }
 
