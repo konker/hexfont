@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -g -fno-builtin
+CFLAGS = -Wall -g -std=c99 -fno-builtin -D_GNU_SOURCE
 EXTRA_FLAGS = -L. -lhexfont
 utilObjs = hexfont.o
 utilObjsList = hexfont_list.o

@@ -40,7 +40,7 @@
 #define HEXFONT_DEFAULT_NON_PRINTABLE_WIDTH 3
 
 
-extern const bool hexfont_character_get_pixel(hexfont_character * const c, const size_t x, const size_t y);
+extern inline const bool hexfont_character_get_pixel(hexfont_character * const c, const size_t x, const size_t y);
 extern inline hexfont_character * const hexfont_get(hexfont * const font, const uint32_t codepoint);
 
 static hexfont * const __hexfont_load_exec(FILE *fp, const uint8_t glyph_height);
