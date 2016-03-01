@@ -40,7 +40,7 @@ int main(int argc, char **argv) {
 
     hexfont_character *c =
                 hexfont_get(example_font, HEXFONT_EXAMPLE_TEST_CODEPOINT);
-    printf("Get: %d -> %p (%d) -> %02x\n", HEXFONT_EXAMPLE_TEST_CODEPOINT, c, c->glyph_len, c->codepoint);
+    printf("Get: %d -> %p (%ld) -> %02x\n", HEXFONT_EXAMPLE_TEST_CODEPOINT, c, c->glyph_len, c->codepoint);
 
     hexfont_dump_character(c, stdout);
 

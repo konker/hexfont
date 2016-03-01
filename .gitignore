@@ -30,5 +30,16 @@
 # Debug files
 *.dSYM/
 
+# CMake stuff
+build
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Makefile
+cmake_install.cmake
+install_manifest.txt
+
 # Project specific
+local
 example
+
