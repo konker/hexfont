@@ -9,11 +9,7 @@ include_directories(include)
 file(GLOB LIBSOURCES "src/*.c")
 file(GLOB EXAMPLESOURCES "examples/*.c")
 
-if(SHARED_LIBRARY)
-    add_library(hexfont SHARED ${LIBSOURCES})
-else()
-    add_library(hexfont STATIC ${LIBSOURCES})
-endif()
+add_library(hexfont ${LIBSOURCES})
 
 add_executable(hexfont_example examples/hexfont_example.c)
 target_link_libraries(hexfont_example hexfont)
