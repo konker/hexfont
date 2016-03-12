@@ -54,11 +54,10 @@ void hexfont_list_destroy(hexfont_list * const head) {
 
 void hexfont_list_append(hexfont_list * const head, hexfont * const new_item) {
     hexfont_list *tail = head;
-    hexfont_list *iter = head;
-    while (iter->next) {
-        tail = iter;
-        iter = iter->next;
+    while (tail->next) {
+        tail = tail->next;
     }
+
     if (tail->item == NULL) {
         tail->item = new_item;
     }
@@ -68,17 +67,20 @@ void hexfont_list_append(hexfont_list * const head, hexfont * const new_item) {
 }
 
 uint16_t hexfont_list_get_length(hexfont_list * const head) {
+    if (head == NULL) {
+        return 0;
+    }
+
     uint16_t ret = 0;
-    hexfont_list *iter = head;
-    while (iter->next) {
+    hexfont_list *iter;
+    for (iter=head; iter!=NULL; iter=iter->next) {
         ret++;
-        iter = iter->next;
     }
     return ret;
 }
 
 hexfont * const hexfont_list_get_nth(hexfont_list * const head, int16_t n) {
-    if (hexfont_list_get_length(head) < n) {
+    if (hexfont_list_get_length(head) <= n) {
         return NULL;
     }
 
