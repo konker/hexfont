@@ -38,9 +38,11 @@ hexfont_list * const hexfont_list_create(hexfont * const item) {
 }
 
 void hexfont_list_destroy(hexfont_list * const head) {
-    hexfont_list *tmp;
-    hexfont_list *iter = head;
+    if (head == NULL) {
+        return;
+    }
 
+    hexfont_list *tmp, *iter = head;
     while (iter->next) {
         tmp = iter;
         iter = iter->next;
@@ -53,6 +55,10 @@ void hexfont_list_destroy(hexfont_list * const head) {
 }
 
 void hexfont_list_append(hexfont_list * const head, hexfont * const new_item) {
+    if (head == NULL) {
+        return;
+    }
+
     hexfont_list *tail = head;
     while (tail->next) {
         tail = tail->next;
