@@ -68,7 +68,7 @@ void hexfont_dump_character(hexfont_character * const c, FILE *fp);
 
 const uint16_t __hexfont_hash_function(const uint32_t codepoint, const uint16_t N);
 
-inline const bool hexfont_character_get_pixel(hexfont_character * const c, const size_t x, const size_t y) {
+static inline const bool hexfont_character_get_pixel(hexfont_character * const c, const size_t x, const size_t y) {
     // Number of bytes in one row of the glyph
     const size_t glyph_row_bytes = (c->glyph_len / c->height);
 
@@ -81,7 +81,7 @@ inline const bool hexfont_character_get_pixel(hexfont_character * const c, const
     return ((c->glyph[byte] << bit) & 0x80) != 0;
 }
 
-inline hexfont_character * const hexfont_get(hexfont * const font, const uint32_t codepoint) {
+static inline hexfont_character * const hexfont_get(hexfont * const font, const uint32_t codepoint) {
     const uint16_t key = __hexfont_hash_function(codepoint, font->length);
     if (font->length < key) {
         return NULL;
